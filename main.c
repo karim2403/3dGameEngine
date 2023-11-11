@@ -15,7 +15,7 @@ int main(int argc, char* argv[]) {
 
     while (1) {
         if (SDL_PollEvent(&windowEvent)) {
-            if (SDL_Quit == windowEvent.type) {
+            if (windowEvent.type == SDL_WINDOWEVENT_CLOSE) {
                 break;
             }
         }
