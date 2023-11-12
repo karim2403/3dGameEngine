@@ -1,5 +1,6 @@
 #include <SDL2/SDL.h>
 #include <stdio.h>
+#include <stdbool.h>
 
 const int width = 800;
 const int height = 600;
@@ -11,12 +12,15 @@ int main(int argc, char* argv[]) {
         perror("sdl_createwindow");
         return -1;
     }
-    SDL_Event windowEvent;
-
-    while (1) {
-        if (SDL_PollEvent(&windowEvent)) {
-            if (windowEvent.type == SDL_WINDOWEVENT_CLOSE) {
-                break;
+    SDL_Surface *screenSurface = SDL_GetWindowSurface(window);
+    SDL_FillRect(screenSurface, NULL, SDL_MapRGB(screenSurface->format, 0xFF, 0xFF, 0xFF));
+    SDL_UpdateWindowSurface(window);
+    SDL_Event e;
+    bool running = true;
+    while (running) {
+        while (SDL_PollEvent(&e) != 0) {
+            if (e.type == SDL_QUIT) {
+                running = false;
             }
         }
     }
